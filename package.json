@@ -1,6 +1,6 @@
 {
   "name": "activitystreams-xl",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "ActivityStreams 1.0 & 2.0 parsing and translation",
   "main": "index.js",
   "scripts": {
