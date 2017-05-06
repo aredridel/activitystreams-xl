@@ -1,0 +1,24 @@
+{
+  "name": "activitystreams-xl",
+  "version": "1.0.0",
+  "description": "ActivityStreams 1.0 & 2.0 parsing and translation",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape test/*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aredridel/activitystreams-xl.git"
+  },
+  "keywords": [
+    "activitystreams",
+    "atom",
+    "mastodon"
+  ],
+  "author": "Aria Stewart <aredridel@dinhe.net>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aredridel/activitystreams-xl/issues"
+  },
+  "homepage": "https://github.com/aredridel/activitystreams-xl#readme"
+}
