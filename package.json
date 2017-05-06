@@ -20,5 +20,23 @@
   "bugs": {
     "url": "https://github.com/aredridel/activitystreams-xl/issues"
   },
-  "homepage": "https://github.com/aredridel/activitystreams-xl#readme"
+  "homepage": "https://github.com/aredridel/activitystreams-xl#readme",
+  "dependencies": {
+    "tape": "^4.6.3"
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "ecmaVersion": 6
+    },
+    "rules": {
+      "valid-typeof": "error",
+      "no-unused-vars": "error",
+      "no-undef": "error"
+    },
+    "env": {
+      "es6": true,
+      "browser": true,
+      "node": true
+    }
+  }
 }
