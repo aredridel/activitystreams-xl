@@ -21,7 +21,7 @@
     "url": "https://github.com/aredridel/activitystreams-xl/issues"
   },
   "homepage": "https://github.com/aredridel/activitystreams-xl#readme",
-  "dependencies": {
+  "devDependencies": {
     "tape": "^4.6.3"
   },
   "eslintConfig": {
