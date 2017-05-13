@@ -13,7 +13,6 @@ module.exports = {
 };
 
 function parse(xml) {
-    console.warn(xml);
     const atom = ltx.parse(xml);
     if (atom.is('feed', ATOMNS)) {
         return {items: atom.children.map(entry2as2)};
@@ -70,7 +69,6 @@ function elementToAs2(el) {
 function typeForIRI(iri) {
     iri = url.resolve('http://activitystrea.ms/schema/1.0/', iri);
     if (as2tables.legacyTypes[iri]) iri = as2tables.legacyTypes[iri];
-    console.warn(iri);
     return as2tables.byURI[iri] ?  as2tables.byURI[iri].name : null;
     
     // TODO: handle ostatus URLs.
