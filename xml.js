@@ -25,7 +25,7 @@ function parse(xml) {
 }
 
 function entry2as2(el) {
-    const type = typeForIRI(getText(el, 'verb', ACTIVITYNS)) || getText(el, 'object-type', ACTIVITYNS) || 'Add';
+    const type = typeForIRI(getText(el, 'verb', ACTIVITYNS) || getText(el, 'object-type', ACTIVITYNS)) || 'Add';
     const id = getText(el, 'id', ATOMNS);
 
     const out = {
