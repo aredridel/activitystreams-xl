@@ -2609,6 +2609,27 @@ In the [HTML5], any string not containing the "space" U+0020, "tab" (U+0009), "L
   }
 };
 
+const legacyTypes = {
+  'http://activitystrea.ms/schema/1.0/accept': `https://www.w3.org/ns/activitystreams#Accept`,
+  'http://activitystrea.ms/schema/1.0/add': `https://www.w3.org/ns/activitystreams#Add`,
+  'http://activitystrea.ms/schema/1.0/create': `https://www.w3.org/ns/activitystreams#Create`,
+  'http://activitystrea.ms/schema/1.0/delete': `https://www.w3.org/ns/activitystreams#Delete`,
+  'http://activitystrea.ms/schema/1.0/dislike': 'https://www.w3.org/ns/activitystreams#Dislike',
+  'http://activitystrea.ms/schema/1.0/flag-as-inappropriate': 'https://www.w3.org/ns/activitystreams#Flag',
+  'http://activitystrea.ms/schema/1.0/follow': 'https://www.w3.org/ns/activitystreams#Follow',
+  'http://activitystrea.ms/schema/1.0/ignore': 'https://www.w3.org/ns/activitystreams#Ignore',
+  'http://activitystrea.ms/schema/1.0/invite': 'https://www.w3.org/ns/activitystreams#Invite',
+  'http://activitystrea.ms/schema/1.0/join': 'https://www.w3.org/ns/activitystreams#Join',
+  'http://activitystrea.ms/schema/1.0/leave': 'https://www.w3.org/ns/activitystreams#Leave',
+  'http://activitystrea.ms/schema/1.0/like': 'https://www.w3.org/ns/activitystreams#Like',
+  'http://activitystrea.ms/schema/1.0/listen': 'https://www.w3.org/ns/activitystreams#Listen',
+  'http://activitystrea.ms/schema/1.0/read': 'https://www.w3.org/ns/activitystreams#Read',
+  'http://activitystrea.ms/schema/1.0/reject': 'https://www.w3.org/ns/activitystreams#Reject',
+  'http://activitystrea.ms/schema/1.0/remove': 'https://www.w3.org/ns/activitystreams#Remove',
+  'http://activitystrea.ms/schema/1.0/update': 'https://www.w3.org/ns/activitystreams#Update',
+  'http://activitystrea.ms/schema/1.0/person': 'https://www.w3.org/ns/activitystreams#Person',
+};
+
 module.exports = {
   properties,
   coreTypes,
@@ -2616,5 +2637,6 @@ module.exports = {
   actorTypes,
   objectAndLinkTypes,
   allTypes,
+  legacyTypes,
   byURI
 };
