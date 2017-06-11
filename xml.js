@@ -2,12 +2,34 @@ const ltx = require('ltx');
 
 const ATOMNS = 'http://www.w3.org/2005/Atom';
 const ACTIVITYNS = 'http://activitystrea.ms/spec/1.0/';
+const AS2NS = 'https://www.w3.org/ns/activitystreams';
 const POCONS = "http://portablecontacts.net/spec/1.0";
 //const MASTODONNS = "http://mastodon.social/schema/1.0";
 const url = require('url');
 //const error = require('./error');
 const as2tables = require('./tables');
 const jsonld = require('jsonld').promises;
+const as2context = require('./as2.context.json');
+
+const nodeDocumentLoader = require('jsonld').documentLoaders.node();
+
+const CONTEXTS = {
+  [AS2NS]: as2context
+}
+
+const documentLoader = function(url, callback) {
+  if(url in CONTEXTS) {
+    return callback(
+      null, {
+        contextUrl: null, // this is for a context via a link header
+        document: CONTEXTS[url], // this is the actual document that was loaded
+        documentUrl: url // this is the actual context URL after redirects
+      });
+  }
+
+  nodeDocumentLoader(url, callback);
+};
+
 
 module.exports = {
   parse
@@ -30,7 +52,7 @@ function entry2as2(el) {
   // if is implicit, return implicit2as2
   // else
   const as1 = entry2as1(el);
-  return jsonld.compact(addContext(as1ToAS2(as1)), 'https://www.w3.org/ns/activitystreams');
+  return jsonld.compact(addContext(as1ToAS2(as1)), 'https://www.w3.org/ns/activitystreams', { documentLoader });
 }
 
 function as1ToAS2(obj) {
@@ -58,7 +80,7 @@ function as1ToAS2(obj) {
 
 function addContext(obj) {
   return Object.assign({
-    '@context': 'https://www.w3.org/ns/activitystreams'
+    '@context': AS2NS
   }, obj);
 }
 
