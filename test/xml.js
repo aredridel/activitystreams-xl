@@ -77,21 +77,23 @@ const unfollow = `<?xml version="1.0"?>
 </entry>`;
 
 tape.test('parse follow', t => {
-    const obj = parse(follow);
-    t.ok(obj);
-    t.equal(obj.type, 'https://www.w3.org/ns/activitystreams#Follow');
-	jsonld.expand(obj).then(e => {
+    return parse(follow).then(obj => {
+	  t.ok(obj);
+	  t.equal(obj.type, 'Follow');
+	  return jsonld.expand(obj)
+	}).then(e => {
 	  t.equal(e[0]['https://www.w3.org/ns/activitystreams#content'][0]['@value'], 'aredridel started following test2@test.yayforqueers.net');
 	})
-	.catch(t.notOk)
+	.catch(t.error)
 	.then(t.end)
 });
 
 tape.test('parse unfolllow', t => {
-    const obj = parse(unfollow);
-    t.ok(obj);
-    t.equal(obj.type, 'https://www.w3.org/ns/activitystreams#Undo');
-    t.equal(obj.object.type, 'https://www.w3.org/ns/activitystreams#Follow');
-
-    t.end();
+    return parse(unfollow).then(obj => {
+	  t.ok(obj);
+	  t.equal(obj.type, 'Undo');
+	  t.equal(obj.object.type, 'Follow');
+	})
+	.catch(t.error)
+	.then(t.end);
 });

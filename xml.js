@@ -2,11 +2,12 @@ const ltx = require('ltx');
 
 const ATOMNS = 'http://www.w3.org/2005/Atom';
 const ACTIVITYNS = 'http://activitystrea.ms/spec/1.0/';
-//const POCONS = "http://portablecontacts.net/spec/1.0";
+const POCONS = "http://portablecontacts.net/spec/1.0";
 //const MASTODONNS = "http://mastodon.social/schema/1.0";
 const url = require('url');
 //const error = require('./error');
 const as2tables = require('./tables');
+const jsonld = require('jsonld').promises;
 
 module.exports = {
   parse
@@ -15,13 +16,13 @@ module.exports = {
 function parse(xml) {
   const atom = ltx.parse(xml);
   if (atom.is('feed', ATOMNS)) {
-    return {
-      items: atom.children.map(entry2as2)
-    };
+    return atom.children.map(entry2as2).then(entries => ({
+      items: entries
+    }));
   } else if (atom.is('entry', ATOMNS) || atom.is('object', ACTIVITYNS) || atom.is('target', ACTIVITYNS)) {
-    return entry2as2(atom);
+    return Promise.resolve(entry2as2(atom));
   } else {
-    throw new Error(`unrecognized type of element ${atom.name})`);
+    return Promise.reject(new Error(`unrecognized type of element ${atom.name})`));
   }
 }
 
@@ -29,7 +30,7 @@ function entry2as2(el) {
   // if is implicit, return implicit2as2
   // else
   const as1 = entry2as1(el);
-  return addContext(as1ToAS2(as1));
+  return jsonld.compact(addContext(as1ToAS2(as1)), 'https://www.w3.org/ns/activitystreams');
 }
 
 function as1ToAS2(obj) {
@@ -96,13 +97,13 @@ function canonicalPropertyName(ns, name) {
     } else {
       return name;
     }
-  } else if (ns == 'http://activitystrea.ms/spec/1.0/') {
+  } else if (ns == ACTIVITYNS) {
     if (name == 'object-type') {
       return 'objectType';
     } else {
       return name;
     }
-  } else if (ns == 'http://portablecontacts.net/spec/1.0') {
+  } else if (ns == POCONS) {
     return name;
   } else {
     return ns + name;
