@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/aredridel/activitystreams-xl#readme",
   "devDependencies": {
+    "jsonld": "^0.4.12",
     "tape": "^4.6.3"
   },
   "eslintConfig": {
